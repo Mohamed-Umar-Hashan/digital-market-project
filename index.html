@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HNS Advanced Hospital & Home care Equipment</title>
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f8fb;
+    }
+    header, footer {
+      background-color: #0077b6;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    footer { font-size: 14px; }
+
+    nav { margin-top: 10px; }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    nav a:hover { text-decoration: underline; }
+    .header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logo img {
+  height: 130px;   /* adjust size as needed */
+  width: auto;
+  border-radius: 8px; /* optional for rounded edges */
+}
+
+.header-text {
+  text-align: center;
+}
+
+    section {
+      display: none;
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      border-radius: 8px;
+    }
+    section.active { display: block; }
+
+    h2 { color: #0077b6; }
+    ul { line-height: 1.8; }
+
+    .hero-text {
+      background: #e6f2f8;
+      text-align: center;
+      padding: 30px 20px;
+      border-bottom: 2px solid #ddd;
+    }
+    .hero-text h2 { font-size: 24px; margin-bottom: 12px; color: #0077b6; }
+    .hero-text p { font-size: 16px; margin: 6px 0; color: #333; }
+    .hero-text strong { color: #d62828; }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .product-item {
+      text-align: center;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      transition: transform 0.2s;
+    }
+    .product-item:hover { transform: scale(1.03); }
+    .product-item img {
+      width: 100%;
+      max-width: 220px;
+      height: 160px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .product-desc { margin-top: 8px; font-size: 14px; color: #333; }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 20px;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .filter-btn.active { background: #0077b6; color: #fff; }
+
+    .search-container { text-align: center; margin: 20px; }
+    .search-container input {
+      padding: 10px;
+      width: 280px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .modal button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: #0077b6;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+    button[type="submit"] {
+      padding: 10px;
+      background: #0077b6;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #005f87; }
+  </style>
+</head>
+<body>
+  <header>
+  <div class="header-container">
+    <div class="logo">
+      <img src="logo.jpg" alt="HNS Logo">
+    </div>
+    <div class="header-text">
+      <h1>HNS Advanced Hospital & Home Care Equipments</h1>
+      <p>Reliable Solutions for Modern Healthcare Facilities</p>
+      <nav>
+        <a href="#" onclick="showSection('home')">Home</a> |
+        <a href="#" onclick="showSection('about')">About Us</a> |
+        <a href="#" onclick="showSection('contact')">Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
+  <!-- ✅ HOME -->
+  <section id="home" class="active">
+    <div class="hero-text">
+      <h2>For More Details Contact Us By Clicking An Image</h2>
+      <p>We’re here to support your healthcare needs—reach out for quotes, technical specs, or demos.</p>
+      <p><strong>Always read the label and follow directions for use.</strong></p>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search products…">
+    </div>
+
+    <nav class="filter-buttons" id="filterButtons"></nav>
+    <div class="products" id="productContainer"></div>
+  </section>
+
+  <!-- ✅ ABOUT -->
+  <section id="about">
+    <h2>About Us</h2>
+    <ul>
+      <li>At Advanced MedEquip Solutions, we specialize in providing advanced, reliable, and affordable medical equipment for modern healthcare facilities. With years of expertise, we aim to bridge the gap between technology and healthcare.</li>
+      <li>we specialize in Hospital & Home Care equipments...</li>
+    </ul>
+    <h3>Our Mission</h3>
+    <p>To empower hospitals and clinics with state-of-the-art medical solutions, ensuring quality care for patients.</p>
+    <h3>Why Choose Us?</h3>
+    <ul>
+      <li>Trusted supplier </li>
+      <li>Certified medical-grade equipment</li>
+      <li>24/7 technical support and training</li>
+      <li>Speed Delivery</li>
+    </ul>
+  </section>
+
+  <!-- ✅ CONTACT -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you! Reach out to us for product inquiries, technical details, or support.</p>
+    <h3>Our Contact Details</h3>
+    <p><strong>Mobile:</strong> +971xxxxxxx</p>
+    <p><strong>Email:</strong>hnsmedequip@gmail.com</p>
+    <p><strong>Address:</strong> HNS MedEquip Solutions</p>
+
+    
+    
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Advanced MedEquip Solutions. All rights reserved.</p>
+  </footer>
+
+  <!-- Contact Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <h3 id="modalTitle">Contact Us</h3>
+      <p><strong>Sales Engineer:</strong> <span id="modalsales engineer">Mohamed</span></p>
+      <p><strong>Mobile:</strong> <span id="modalMobile">+971xxxxxxxx</span></p>
+      <p><strong>Email:</strong> <span id="modalEmail">hnsmedequip@gmail.com</span></p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const mobile = '+971xxxxxxxxx';
+    const email = 'hnsmedequip@gmail.com';
+
+    // ✅ Updated product data
+    const products = [
+      { name: "Electric Bed", category: "Furniture", img: "electric-bed.jpg",Brand: "emerald", desc: "Adjustable electric hospital bed for patient comfort." },
+      { name: "Standard Wheel Chair", category: "Mobility", img: "standard-wheelchair.jpg", desc: "Durable wheelchair for everyday patient mobility." },
+      { name: "Electric Wheel Chair", category: "Mobility", img: "electric-wheelchair.jpg", desc: "Motorized wheelchair for enhanced independence." },
+      { name: "Commode Chair", category: "Mobility", img: "commode-chair.jpg", desc: "Convenient commode chair for patient care." },
+      { name: "Shower Chair", category: "Mobility", img: "shower-chair.jpg", desc: "Safe and comfortable chair for bathing." },
+      { name: "Oxygen Concentrator", category: "Respiratory", img: "oxygen-concentrator.jpg", desc: "Portable oxygen concentrator for patients." },
+      { name: "BiPAP Machine", category: "Respiratory", img: "bipap.jpg", desc: "Bi-level Positive Airway Pressure machine for therapy." },
+      { name: "CPAP Machine", category: "Respiratory", img: "cpap.jpg", desc: "Continuous Positive Airway Pressure machine." },
+      { name: "Patient Lift & slings", category: "Mobility", img: "patient-lift.jpg", desc: "Hydraulic/electric lift for patient transfers." },
+      { name: "Stretcher", category: "Emergency", img: "stretcher.jpg", desc: "Durable stretcher for patient transport." },
+      { name: "Nebulizer", category: "Respiratory", img: "nebulizer.jpg", desc: "Device for effective medication delivery." },
+      { name: "Pills Crusher", category: "Consumables", img: "pills-crusher.jpg", desc: "Crusher for tablets and pills." },
+      { name: "Doctor Coat", category: "Apparel", img: "doctor-coat.jpg", desc: "Professional white coat for doctors." },
+      { name: "Scrub Suit", category: "Apparel", img: "scrub-suit.jpg", desc: "Medical scrub suits for healthcare staff." },
+      { name: "Medical Coverall", category: "Apparel", img: "coverall.jpg", desc: "Protective coverall for safety." },
+      { name: "First Aid Box", category: "Emergency", img: "first-aid-box.jpg", desc: "Compact first aid box with essentials." },
+      { name: "Ambulance Bag", category: "Emergency", img: "ambulance-bag.jpg", desc: "Emergency medical response bag." },
+      { name: "Stress Ball", category: "Consumables", img: "stress-ball.jpg", desc: "Stress relief ball for therapy." },
+      { name: "Consumables", category: "Consumables", img: "consumables.jpg", desc: "Daily-use medical consumable items." },
+      { name: "Disposable Gloves & Masks", category: "Consumables", img: "disposable.jpg", desc: "Single-use medical disposables." },
+      { name: "Hot and Cold Therapy Packs", category: "Therapy", img: "therapy-packs.jpg", desc: "Reusable packs for hot and cold therapy." },
+      { name: "Dressing and Wound Care Kits", category: "Consumables", img: "wound-care.jpg", desc: "Complete kits for wound dressing and care." },
+      { name: "Infusion Pumps", category: "Equipment", img: "infusion-pump.jpg", desc: "Accurate and reliable infusion delivery system." },
+      { name: "IV Stands", category: "Furniture", img: "iv-stand.jpg", desc: "Durable IV stands for hospital use." },
+      { name: "Defibrillator AED", category: "Emergency", img: "aed.jpg", desc: "Portable AED for life-saving cardiac emergencies." },
+      { name: "Adult Diapers", category: "Consumables", img: "adult-diapers.jpg", desc: "High-absorbency adult diapers for patients." },
+      { name: "Transparent Storage Boxes", category: "Storage", img: "storage-box.jpg", desc: "Clear boxes for organizing medical supplies." },
+      { name: "Pharmacy Bags", category: "Consumables", img: "pharmacy-bag.jpg", desc: "Pharmacy bags for medicine dispensing." },
+      { name: "Digital Blood Pressure Monitor", category: "Monitoring", img: "bp-monitor.jpg", desc: "Accurate digital blood pressure monitoring." },
+      { name: "Blood Glucose Monitor System", category: "Monitoring", img: "glucose-monitor.jpg", desc: "System for testing and monitoring glucose levels." },
+      { name: "Pulse Oximeter", category: "Monitoring", img: "pulse-oximeter.jpg", desc: "Device to measure oxygen saturation and pulse." },
+      { name: "Suction Machine", category: "Equipment", img: "suction-machine.jpg", desc: "Portable suction machine for medical use." },
+      { name: "Crutches", category: "Mobility", img: "crutches.jpg", desc: "Support crutches for patient mobility." },
+      { name: "Walking Stick", category: "Mobility", img: "canes-crutches.jpg", desc: "Walking Stick for patient mobility." },
+      { name: "Oxygen Regulator Set", category: "Respiratory", img: "oxygen-regulator.jpg", desc: "Complete oxygen regulator set for precise flow control." },
+      { name: "Sphygmomanometer", category: "Monitoring", img: "sphygmomanometer.jpg", desc: "Manual blood pressure measuring device." },
+      { name: "Stethoscope", category: "Monitoring", img: "stethoscope.jpg", desc: "High-quality stethoscope for accurate auscultation." },
+      { name: "Wall Mounted Sphygmomanometer", category: "Monitoring", img: "wall-sphygmomanometer.jpg", desc: "Professional wall-mounted BP measuring unit." },
+      { name: "Infrared Thermometer", category: "Monitoring", img: "infrared-thermometer.jpg", desc: "Non-contact infrared thermometer for temperature checks." },
+      { name: "Digital Thermometer", category: "Monitoring", img: "digital-thermometer.jpg", desc: "Compact digital thermometer for quick readings." },
+      { name: "CPR Mask", category: "Emergency", img: "cpr-mask.jpg", desc: "Reusable CPR mask with one-way valve for resuscitation." },
+      { name: "Hospital Bedside Screen Curtain", category: "Furniture", img: "bedside-screen.jpg", desc: "Privacy screen for hospital and clinical use." },
+      { name: "Swab Gauze", category: "Consumables", img: "swab-gauze.jpg", desc: "Sterile gauze swabs for wound cleaning and dressing." },
+      { name: "Absorbent Surgical Cotton", category: "Consumables", img: "surgical-cotton.jpg", desc: "High-quality absorbent cotton for medical use." },
+      { name: "Nursing Shoes", category: "Apparel", img: "nursing-shoes.jpg", desc: "Comfortable shoes for nurses and medical staff." },
+      { name: "Hospital Slippers", category: "Apparel", img: "hospital-slippers.jpg", desc: "Non-slip slippers for hospital and patient use." },
+      { name: "Air Mattress", category: "Furniture", img: "air-mattress.jpg", desc: "Anti-decubitus air mattress for bed sore prevention." },
+      { name: "Over Bed Table", category: "Furniture", img: "overbed-table.jpg", desc: "Adjustable overbed table for hospital use." },
+      { name: "Walker", category: "Mobility", img: "walker.jpg", desc: "Adjustable walker to assist patient mobility." },
+      { name: "Examination Couch", category: "Furniture", img: "examination-couch.jpg", desc: "Comfortable couch for patient examination." },
+      { name: "Revolving Stool", category: "Furniture", img: "revolving-stool.jpg", desc: "Height-adjustable revolving stool for clinics." },
+      { name: "Operating Stool", category: "Furniture", img: "operating-stool.jpg", desc: "Ergonomic stool for surgeons and staff." },
+      { name: "Foot Stool Double Step", category: "Furniture", img: "foot-stool.jpg", desc: "Durable double-step stool for patient assistance." },
+      { name: "Blood Donor Chair", category: "Furniture", img: "blood-donor-chair.jpg", desc: "Comfortable chair designed for blood donation." },
+      { name: "Instruments Trolley", category: "Equipment", img: "instruments-trolley.jpg", desc: "Stainless steel trolley for surgical instruments." },
+      { name: "Medical Emergency Trolley", category: "Emergency", img: "emergency-trolley.jpg", desc: "Multi-drawer emergency trolley for hospitals." },
+      { name: "Medicine Trolley", category: "Equipment", img: "medicine-trolley.png", desc: "Trolley for efficient medicine storage and transport." },
+      { name: "Medical Infant Bed", category: "Furniture", img: "infant-bed.jpg", desc: "Safe and comfortable infant hospital bed." },
+      { name: "Height and Weight Scale", category: "Monitoring", img: "height-weight-scale.jpg", desc: "Accurate scale for measuring height and weight." },
+      { name: "Foldable Spinal Board", category: "Emergency", img: "foldable-spinal-board.jpg", desc: "Lightweight, foldable board for patient transport." },
+      { name: "Spinal Board Long and Short", category: "Emergency", img: "spinal-board.jpg", desc: "Durable spinal boards in long and short versions." },
+      { name: "Fracture Splint", category: "Emergency", img: "fracture-splint.jpg", desc: "Sturdy splint for immobilizing fractures." },
+      { name: "Elbow Crutch", category: "Mobility", img: "elbow-crutch.jpg", desc: "Lightweight elbow crutch for mobility support." },
+      { name: "Stretcher Folding", category: "Emergency", img: "folding-stretcher.jpg", desc: "Foldable stretcher for easy transport and storage." },
+      { name: "Shelf Bin Box", category: "Storage", img: "shelf-bin-boxes.jpg", desc: "Plastic shelf bins for organized medical storage." },
+      { name: "Fridge Storage Boxe", category: "Storage", img: "fridge-storage-boxes.jpg", desc: "Temperature-resistant boxes for medical refrigeration." },
+      { name: "Zip Lock Plastic Bag", category: "Storage", img: "zip-lock-bag.jpg", desc: "Sealable plastic bags for medical samples and items." },
+      { name: "Footrest", category: "Furniture", img: "footrest.jpg", desc: "Adjustable footrest for patient comfort." },
+      { name: "ID Card Holder", category: "Accessories", img: "id-card-holder.jpg", desc: "Durable ID card holder for staff and personnel." },
+      { name: "Personal Care Items", category: "Consumables", img: "personal-care.jpg", desc: "Essential personal hygiene care items." },
+      { name: "Essentials Baby Kit", category: "Baby Care", img: "baby-kit.jpg", desc: "Complete kit for newborn baby care essentials."},
+      { name: "Surgical Scissors", category: "Surgical Instruments", img: "Surgical-Scissors.jpg", desc: "Precision surgical scissors for cutting tissue and sutures." },
+      { name: "Reflex Hammer", category: "Diagnostic Tools", img: "Reflex-Hammer.jpg", desc: "Used to test deep tendon reflexes in patients." },
+      { name: "Catheter", category: "Consumables", img: "catheter.jpg", desc: "Sterile catheter used for urine drainage or medical procedures." },
+      { name: "Nasogastric Tube", category: "Consumables", img: "Nasogastric-Tube.jpg", desc: "Flexible tube used for feeding or gastric decompression." },
+      { name: "Medical Halogen Pen Light", category: "Diagnostic Tools", img: "Medical Halogen Pen Light.jpg", desc: "Portable pen light used for pupil and throat examinations." },
+      { name: "Kidney Tray", category: "Surgical Instruments", img: "Kidney-Tray.jpg", desc: "Stainless steel tray shaped for handling medical waste and tools." },
+      { name: "Instrument Tray", category: "Surgical Instruments", img: "Instrument Tray.jpg", desc: "Sterile tray for arranging surgical instruments." },
+      { name: "Dressing Drum", category: "Sterilization Equipment", img: "Dressing Drum.jpg", desc: "Autoclavable container for storing sterilized dressings." },
+      { name: "Oxygen Mask and Tube", category: "Respiratory", img: "Oxygen Mask and Tube.jpg", desc: "Complete oxygen mask set with soft tubing for patient comfort." },
+      { name: "Ophthalmoscope", category: "Diagnostic Tools", img: "Ophthalmoscope.jpg", desc: "Instrument for examining the interior structure of the eye." },
+      { name: "Otoscope", category: "Diagnostic Tools", img: "Otoscope.jpg", desc: "Tool for visual examination of the ear canal and eardrum." },
+      { name: "Specimen Cup", category: "Consumables", img: "Specimen Cup.jpg", desc: "Sterile cup used for collecting biological samples." },
+      { name: "Urinal", category: "Patient Care", img: "Urinal.jpg", desc: "Portable urinal for bedridden or mobility-impaired patients." },
+      { name: "Cannula", category: "Respiratory", img: "Cannula.jpg", desc: "Flexible nasal cannula for oxygen delivery." },
+      { name: "Crocodile Forceps", category: "Surgical Instruments", img: "Crocodile Forceps.jpg", desc: "Fine forceps with serrated jaws for precision grasping." },
+      { name: "Electrocardiograph (ECG) Machine", category: "Monitoring", img: "Electrocardiograph.jpg", desc: "Device that records the electrical activity of the heart." },
+      { name: "Surgical Isolation Gown", category: "Protective Wear", img: "Surgical Isolation Gown.jpg", desc: "Disposable gown providing barrier protection against fluids and contaminants during medical procedures." },
+      { name: "scrub Cap", category: "Protective Wear", img: "Scrub Cap.jpg", desc: "Lightweight disposable cap designed to cover hair and maintain hygiene in medical environments."}
+    ];
+
+    // Render products
+    const productContainer = document.getElementById("productContainer");
+    function renderProducts() {
+      productContainer.innerHTML = "";
+      products.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product-item";
+        div.dataset.name = p.name.toLowerCase();
+        div.dataset.category = p.category.toLowerCase();
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" data-name="${p.name}">
+          <p class="product-desc"><strong>${p.name}</strong><br>${p.desc}</p>
+        `;
+        div.querySelector("img").addEventListener("click", () => {
+          document.getElementById("modalTitle").textContent = `${p.name} - Contact Us`;
+          document.getElementById("modalMobile").textContent = mobile;
+          document.getElementById("modalEmail").textContent = email;
+          document.getElementById("modalOverlay").style.display = "flex";
+        });
+        productContainer.appendChild(div);
+      });
+    }
+
+    // Render filter buttons
+    const filterButtons = document.getElementById("filterButtons");
+    function renderFilters() {
+      const categories = ["All", ...new Set(products.map(p => p.category))];
+      filterButtons.innerHTML = "";
+      categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "filter-btn";
+        if (cat === "All") btn.classList.add("active");
+        btn.dataset.filter = cat.toLowerCase();
+        btn.textContent = cat;
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          filterAndSearch();
+        });
+        filterButtons.appendChild(btn);
+      });
+    }
+
+    // Search + Filter
+    document.getElementById("searchInput").addEventListener("input", filterAndSearch);
+    function filterAndSearch() {
+      const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+      const activeFilter = document.querySelector(".filter-btn.active").dataset.filter;
+      document.querySelectorAll(".product-item").forEach(item => {
+        const name = item.dataset.name;
+        const category = item.dataset.category;
+        const matchSearch = !searchTerm || name.includes(searchTerm);
+        const matchFilter = activeFilter === "all" || category === activeFilter;
+        item.style.display = (matchSearch && matchFilter) ? "block" : "none";
+      });
+    }
+
+    function closeModal() {
+      document.getElementById("modalOverlay").style.display = "none";
+    }
+    document.getElementById("modalOverlay").addEventListener("click", e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+
+    function showSection(id) {
+      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    renderProducts();
+    renderFilters();
+  </script>
+</body>
+</html>
